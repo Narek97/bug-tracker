@@ -3,11 +3,15 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'make'
+                echo 'Building the project...'
+                sh 'echo "Compiling source code..."'
+                sh 'make build'
             }
         }
         stage('Test') {
             steps {
+                echo 'Running tests...'
+                sh 'echo "Executing unit tests..."'
                 sh 'make test'
             }
         }

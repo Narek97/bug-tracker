@@ -6,7 +6,6 @@ pipeline {
                 docker {
                     image 'golang:1.20'
                     args '-v /go/pkg/mod:/go/pkg/mod'
-                    ruseNode true
                 }
             }
             steps {

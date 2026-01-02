@@ -35,7 +35,7 @@ pipeline {
                         keepAll: true,
                         reportDir: 'bugtracker-backend/reports',
                         reportFiles: 'coverage.html',
-                        reportName: 'Code Coverage Report'
+                        reportName: 'Backend Code Coverage Report'
                     ])
                 }
             }

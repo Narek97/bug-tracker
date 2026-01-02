@@ -11,10 +11,13 @@ pipeline {
             steps {
                 dir('bugtracker-backend') {
                     sh '''
-                        GOCACHE=/tmp/go-cache GOMODCACHE=/tmp/go-mod go test -v ./... | go-junit-report > test-results.xml
+                        export GOCACHE=/tmp/go-cache
+                        export GOMODCACHE=/tmp/go-mod
+
+                        go test -v ./... | go-junit-report > test-results.xml
 
                         #Generate coverage report
-                        GOCACHE=/tmp/go-cache GOMODCACHE=/tmp/go-mod go test -coverprofile=coverage.out ./...
+                        go test -coverprofile=coverage.out ./...
                         go tool cover -html=coverage.out -o coverage.html
 
                         mkdir -p reports

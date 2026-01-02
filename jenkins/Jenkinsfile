@@ -27,6 +27,11 @@ pipeline {
                     sh 'npm test -- --watchAll=false'
                 }
             }
+            post {
+                always {
+                    junit 'bugtracker-frontend/junit.xml'
+                }
+            }
         }
     }
 

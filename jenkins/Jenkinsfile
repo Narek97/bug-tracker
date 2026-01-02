@@ -14,10 +14,7 @@ pipeline {
                 }
             }
         }
-    }
-
-    stages {
-        stage('Unit Tests Frontend') {
+        stage ('Unit Tests Frontend') {
             agent {
                 docker {
                     image 'node:18'
@@ -32,4 +29,5 @@ pipeline {
             }
         }
     }
+
 }

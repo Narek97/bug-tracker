@@ -143,19 +143,19 @@ pipeline {
                     '''
                 }
             }
-//             post {
-//                 always {
-//                     junit 'tests-e2e/test-results/results.xml'
-//                     publishHTML(target: [
-//                         allowMissing: false,
-//                         alwaysLinkToLastBuild: true,
-//                         keepAll: true,
-//                         reportDir: 'tests-e2e/playwright-report',
-//                         reportFiles: 'index.html',
-//                         reportName: 'E2E Test Report'
-//                     ])
-//                 }
-//             }
+            post {
+                always {
+                    junit 'tests-e2e/test-results/results.xml'
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: 'tests-e2e/playwright-report',
+                        reportFiles: 'index.html',
+                        reportName: 'E2E Test Report'
+                    ])
+                }
+            }
         }
     }
     post {

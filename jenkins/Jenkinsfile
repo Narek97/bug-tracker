@@ -175,7 +175,14 @@ pipeline {
             }
             post {
                 always {
-                    junit 'tests-perf/results.xml'
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: 'tests-perf',
+                        reportFiles: 'perf-results.html',
+                        reportName: 'Performance Test Report'
+                    ])
                 }
             }
         }

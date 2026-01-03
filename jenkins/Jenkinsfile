@@ -138,8 +138,7 @@ pipeline {
                 dir('tests-e2e') {
                     sh '''
                         npm install
-                        npx playwright install --with-deps
-                        npx playwright test --reporter=junit --output=e2e-test-results
+                        npx playwright test
                     '''
                 }
             }

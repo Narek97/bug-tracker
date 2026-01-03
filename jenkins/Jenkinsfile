@@ -97,7 +97,7 @@ pipeline {
         stage('Api Tests') {
             agent {
                 docker {
-                    image 'mcr.microsoft.com/playwright:focal'
+                    image 'mcr.microsoft.com/playwright:v1.50.0-focal'
                     reuseNode true
                     args '-u 0 --network="host"'
                 }
@@ -129,7 +129,7 @@ pipeline {
         stage('E2E Tests') {
             agent {
                 docker {
-                    image 'mcr.microsoft.com/playwright:focal'
+                    image 'mcr.microsoft.com/playwright:v1.50.0-focal'
                     reuseNode true
                     args '-u 0 --network="host"'
                 }
@@ -137,6 +137,7 @@ pipeline {
             steps {
                 dir('tests-e2e') {
                     sh '''
+                        npx wait-port http://localhost:3000 --timeout=3000
                         npm install
                         npx playwright test
                     '''

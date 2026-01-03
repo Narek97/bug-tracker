@@ -94,7 +94,7 @@ pipeline {
             }
         }
 
-        stage('Api Tests'){
+        stage('Api Tests') {
             agent {
                 docker {
                     image 'mcr.microsoft.com/playwright:focal'
@@ -125,6 +125,38 @@ pipeline {
                     ])
                 }
             }
+        }
+
+        stage('E2E Tests') {
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/playwright:focal'
+                    reuseNode true
+                    args '-u 0 --network="host"'
+                }
+            }
+            steps {
+                dir('tests-e2e') {
+                    sh '''
+                        npm install
+                        npx playwright install --with-deps
+                        npx playwright test --reporter=junit --output=e2e-test-results
+                    '''
+                }
+            }
+//             post {
+//                 always {
+//                     junit 'tests-e2e/test-results/results.xml'
+//                     publishHTML(target: [
+//                         allowMissing: false,
+//                         alwaysLinkToLastBuild: true,
+//                         keepAll: true,
+//                         reportDir: 'tests-e2e/playwright-report',
+//                         reportFiles: 'index.html',
+//                         reportName: 'E2E Test Report'
+//                     ])
+//                 }
+//             }
         }
     }
     post {

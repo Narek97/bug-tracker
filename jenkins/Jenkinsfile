@@ -129,7 +129,7 @@ pipeline {
         stage('E2E Tests') {
             agent {
                 docker {
-                    image 'mcr.microsoft.com/playwright:v1.50.0-focal'
+                    image 'mcr.microsoft.com/playwright:v1.50.0-jammy'
                     reuseNode true
                     args '-u 0 --network="host"'
                 }
@@ -154,6 +154,28 @@ pipeline {
                         reportFiles: 'index.html',
                         reportName: 'E2E Test Report'
                     ])
+                }
+            }
+        }
+
+        stage('Performance Tests') {
+            agent {
+                docker {
+                    image 'default/k6:latest'
+                    reuseNode true
+                    args '--network="host" -u root --entrypoint=""'
+                }
+            }
+            steps {
+                dir('tests-perf') {
+                    sh '''
+                        k6 run script.js
+                    '''
+                }
+            }
+            post {
+                always {
+                    junit 'tests-perf/results.xml'
                 }
             }
         }

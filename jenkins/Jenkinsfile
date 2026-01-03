@@ -30,7 +30,7 @@ pipeline {
                     }
                     post {
                         always {
-                            junit 'bugtracker-backend/test-results.xml'
+//                             junit 'bugtracker-backend/test-results.xml'
                             publishHTML(target: [
                                 allowMissing: false,
                                 alwaysLinkToLastBuild: true,
@@ -63,7 +63,7 @@ pipeline {
                     }
                     post {
                         always {
-                            junit 'bugtracker-frontend/test-results.xml'
+//                             junit 'bugtracker-frontend/test-results.xml'
                             publishHTML(target: [
                                 allowMissing: false,
                                 alwaysLinkToLastBuild: true,
@@ -105,11 +105,24 @@ pipeline {
             steps {
                 dir('test-api') {
                     sh '''
-                        npx wait-port http://localhost:8000/api/health --timeout=30000
+                        npx wait-port http://localhost:8000/api/health --timeout=3000
                         npm install
                         npx playwright install --with-deps
                         npx playwright test --reporter=junit --output=api-test-results
                     '''
+                }
+            }
+            post {
+                always {
+//                     junit 'test-api/test-results/results.xml'
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: 'test-api/playwright-report',
+                        reportFiles: 'index.html',
+                        reportName: 'API Test Report'
+                    ])
                 }
             }
         }

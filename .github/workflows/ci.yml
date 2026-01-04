@@ -76,7 +76,6 @@ jobs:
           npm test | tee full_output.txt
           
           # Add to GitHub Actions UI
-          echo "## Frontend Test Coverage Report" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat full_output.txt >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY

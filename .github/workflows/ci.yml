@@ -48,7 +48,7 @@ jobs:
         run: npm test -- --watchAll=false
 
       - name: Publish Frontend Test Results
-        uses: dorney/test-reporter@v1
+        uses: dorny/test-reporter@v1
         if: always()
         with:
           name: Frontend Unit Tests Report

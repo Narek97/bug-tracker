@@ -101,3 +101,8 @@ jobs:
         run: |
           docker compose up --build -d
           npx wait-port http://localhost:8000/api/health -t 30000
+      - name: Run API Tests
+        working-directory: ./tests-api
+        run: |
+          npm install
+          npx playwright test

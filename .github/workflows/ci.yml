@@ -47,4 +47,12 @@ jobs:
         working-directory: ./bugtracker-frontend
         run: npm test -- --watchAll=false
 
+      - name: Publish Frontend Test Results
+        uses: dorney/test-reporter@v1
+        if: always()
+        with:
+          name: Frontend Unit Tests Report
+          path: ./bugtracker-frontend/test-results.xml
+          reporter: jest-junit
+
 

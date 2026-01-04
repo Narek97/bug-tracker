@@ -101,8 +101,19 @@ jobs:
         run: |
           docker compose up --build -d
           npx wait-port http://localhost:8000/api/health -t 30000
+
       - name: Run API Tests
         working-directory: ./tests-api
         run: |
           npm install
           npx playwright test
+
+      - name: Shutdown Application
+        run: docker compose down
+
+      - name: Publish API Test Playwright Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-test-results
+          path: ./tests-api/playwright-report
+          retention-days: 30

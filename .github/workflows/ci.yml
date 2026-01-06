@@ -128,7 +128,7 @@ jobs:
           retention-days: 30
 
       - name: Publish API Test Results
-        uses: dorny/test-reporter@v4
+        uses: dorny/test-reporter@v1
         if: always()
         with:
           name: API Tests Report
